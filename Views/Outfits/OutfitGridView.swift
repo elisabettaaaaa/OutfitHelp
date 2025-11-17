@@ -5,10 +5,11 @@ struct OutfitGridView: View {
     @State private var selectedOutfit: Outfit?
     @ObservedObject var viewModel: WardrobeViewModel
 
+    // Tre colonne, flessibili!
     private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.flexible(), spacing: 18),
+        GridItem(.flexible(), spacing: 18),
+        GridItem(.flexible(), spacing: 18)
     ]
 
     var body: some View {
@@ -22,18 +23,20 @@ struct OutfitGridView: View {
                 }
                 .padding(.top, 60)
             } else {
-                LazyVGrid(columns: columns, spacing: 20) {
+                LazyVGrid(columns: columns, spacing: 30) {
                     ForEach(outfits) { outfit in
                         PreviewCardOutfitGrid(items: outfit.clothingItems)
-                            .frame(width: 110, height: 145)
-                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                            .shadow(color: .black.opacity(0.04), radius: 2, x: 0, y: 1)
+                            .frame(width: 110, height: 170)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                            .shadow(color: .black.opacity(0.07), radius: 4, x: 0, y: 2)
                             .onTapGesture {
                                 selectedOutfit = outfit
                             }
                     }
                 }
-                .padding(16)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
             }
         }
         .sheet(item: $selectedOutfit) { outfit in
@@ -42,15 +45,12 @@ struct OutfitGridView: View {
     }
 }
 
-// CARD: miniature outfit nella griglia
 struct PreviewCardOutfitGrid: View {
     let items: [ClothingItem]
 
     var body: some View {
-        // Usa lo stesso componente OutfitDisplay con scale ridotto per le miniature
-        OutfitDisplay(items: items, scale: 0.25)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 8)
+        OutfitDisplay(items: items, scale: 1.0) // Scala giusta per 3 colonne
+            .padding(14)
     }
 }
 
