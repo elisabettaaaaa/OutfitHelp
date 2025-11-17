@@ -49,7 +49,7 @@ struct PreviewCardOutfitGrid: View {
     let items: [ClothingItem]
 
     var body: some View {
-        OutfitDisplay(items: items, scale: 1.0) // Scala giusta per 3 colonne
+        OutfitDisplay(items: items, scale: 1.0) 
             .padding(14)
     }
 }
